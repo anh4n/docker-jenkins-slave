@@ -1,11 +1,10 @@
 FROM docker:17.05.0-ce
 
-RUN apk add --update git openssh openjdk8-jre
-RUN set -x ; \
-  addgroup -g 1000 -S jenkins ; \
-  adduser -u 1000 -s /bin/sh -D -S -G jenkins jenkins ; \
-  echo 'jenkins:jenkins' | chpasswd ; \
-  ssh-keygen -A
+RUN apk add --update git openssh openjdk8-jre bash
+RUN echo 'root:jenkins' | chpasswd
+RUN sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
+    ssh-keygen -A
+RUN mkdir -p /opt/jenkins/workspace;
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
