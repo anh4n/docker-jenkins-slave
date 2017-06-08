@@ -1,6 +1,6 @@
 # anh4n/jenkins-docker-slave
 
-Jenkins Slave running **docker**, **docker-compose** and ssh server
+Jenkins Slave running **docker**, **docker-compose** and ssh server  
 This Image is **not** using docker-in-docker instead the hosts docker daemon is mounted.
 
 ## Jenkins Configuration
