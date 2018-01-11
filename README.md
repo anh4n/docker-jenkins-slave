@@ -23,6 +23,15 @@ If you want to mount directories in a build step e.g.:
 
 then the jenkins slave `Remote FS root` directory (/opt/jenkins) must exist on the host too. Otherwise the docker daemom can't find the mounted files.
 
+## Login to private Docker Registry
+
+At startup the Jenkins Slave can login to a Docker Registry.
+Set the following environment variables in your `docker-compose` file or `docker run` command.
+
+- DOCKER_REGISTRY_HOST
+- DOCKER_REGISTRY_USERNAME
+- DOCKER_REGISTRY_PASSWORD
+
 ## Example `docker-compose.yml` file
 
     version: '2'
@@ -33,3 +42,7 @@ then the jenkins slave `Remote FS root` directory (/opt/jenkins) must exist on t
             volumes:
                 - /var/run/docker.sock:/var/run/docker.sock
                 - /opt/jenkins:/opt/jenkins
+            environment:
+                - DOCKER_REGISTRY_HOST=myregistry.example.com
+                - DOCKER_REGISTRY_USERNAME=myuser
+                - DOCKER_REGISTRY_PASSWORD=mysecretpassword

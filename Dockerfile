@@ -7,5 +7,7 @@ RUN sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
 RUN mkdir -p /opt/jenkins;
 RUN pip install 'docker-compose'
 
+COPY start.sh /root/start.sh
+
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD /root/start.sh
