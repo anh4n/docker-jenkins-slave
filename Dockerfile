@@ -1,13 +1,17 @@
 FROM docker:17.05.0-ce
 
-RUN apk add --update git openssh openjdk8-jre bash py-pip
-RUN echo 'root:jenkins' | chpasswd
-RUN sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config; \
-    ssh-keygen -A
-RUN mkdir -p /opt/jenkins;
-RUN pip install 'docker-compose'
+ENV DOCKER_COMPOSE_VERSION=1.18.0
+
+RUN apk add --update git openssh openjdk8-jre bash py-pip \
+    && echo 'root:jenkins' | chpasswd \
+    && sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && ssh-keygen -A \
+    && mkdir -p /opt/jenkins;
+
+RUN pip install 'docker-compose'==${DOCKER_COMPOSE_VERSION}
 
 COPY start.sh /root/start.sh
 
 EXPOSE 22
-CMD /root/start.sh
+
+CMD ["/root/start.sh"]
