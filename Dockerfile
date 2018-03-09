@@ -1,6 +1,6 @@
-FROM docker:17.05.0-ce
+FROM docker:17.03.1-ce
 
-ENV DOCKER_COMPOSE_VERSION=1.18.0
+ENV DOCKER_COMPOSE_VERSION=1.13.0
 
 RUN apk add --update git openssh openjdk8-jre bash py-pip \
     && echo 'root:jenkins' | chpasswd \
